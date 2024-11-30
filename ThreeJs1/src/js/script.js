@@ -2,11 +2,15 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as dat from "dat.gui";
 
+import nebula from "../img/nebula.jpg";
+import stars from "../img/stars.jpg";
+
 // === Renderer Setup ===
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 renderer.shadowMap.enabled = true; // Enable shadows
+
 // === Scene ===
 const scene = new THREE.Scene();
 
@@ -26,23 +30,29 @@ const ambientLight = new THREE.AmbientLight(0x888888); // Soft ambient lighting
 scene.add(ambientLight);
 
 // Directional light
-// const directionalLight = new THREE.DirectionalLight(0xffffff, 2); // Bright directional light
-// scene.add(directionalLight);
-// directionalLight.position.set(-30, 20, 0);
-// directionalLight.castShadow = true; // Enable shadows
-// directionalLight.shadow.camera.top = 20;
-// directionalLight.shadow.camera.bottom = -20;
-// directionalLight.shadow.camera.left = -20;
-// directionalLight.shadow.camera.right = 20;
+const directionalLight = new THREE.DirectionalLight(0xffffff, 2); // Bright directional light
+scene.add(directionalLight);
+directionalLight.position.set(-30, 20, 0);
+directionalLight.castShadow = true; // Enable shadows
+directionalLight.shadow.camera.top = 20;
+directionalLight.shadow.camera.bottom = -20;
+directionalLight.shadow.camera.left = -20;
+directionalLight.shadow.camera.right = 20;
 
-//Spot Light
-const spotLight = new THREE.SpotLight(0xffffff);
-scene.add(spotLight);
-spotLight.position.set(-100, 100, 0);
-spotLight.castShadow = true; // Enable shadows
+// === Background ===
 
-
-
+// Load background texture
+const textureLoader = new THREE.TextureLoader();
+// scene.background = textureLoader.load(stars); // Load stars background texture in 2D
+const cubeTextureLoader = new THREE.CubeTextureLoader();
+scene.background = cubeTextureLoader.load([
+  nebula,
+  stars,
+  stars,
+  stars,
+  nebula,
+  stars,
+]);
 
 // === GUI Options ===
 const gui = new dat.GUI();
@@ -73,19 +83,13 @@ const gridHelper = new THREE.GridHelper(30, 30); // Grid on the ground
 scene.add(gridHelper);
 
 // Directional light helpers
+const dLightShadowHelper = new THREE.CameraHelper(
+  directionalLight.shadow.camera
+);
+scene.add(dLightShadowHelper);
 
-// const dLightShadowHelper = new THREE.CameraHelper(
-//   directionalLight.shadow.camera
-// );
-// scene.add(dLightShadowHelper);
-
-// const dLightHelper = new THREE.DirectionalLightHelper(directionalLight);
-// scene.add(dLightHelper);
-
-// Spot light helpers
-
-const spotLightHelper = new THREE.SpotLightHelper(spotLight);
-scene.add(spotLightHelper);
+const dLightHelper = new THREE.DirectionalLightHelper(directionalLight);
+scene.add(dLightHelper);
 
 // === Objects ===
 
@@ -116,6 +120,38 @@ const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 sphere.position.set(-10, 4, 1);
 sphere.castShadow = true; // Enable shadows
 scene.add(sphere); // Add sphere to scene
+
+//Box 2 with texture
+
+const box2Geometry = new THREE.BoxGeometry(4,4,4);
+const box2Material = new THREE.MeshStandardMaterial({
+  //color: 0xffffff,
+  map: textureLoader.load(nebula),
+
+});
+const box2 = new THREE.Mesh(box2Geometry, box2Material);
+box2.position.set(10, 10, 10);
+box2.castShadow = true;
+scene.add(box2);
+
+//Box 3 with multiple textures
+
+const box3Geometry = new THREE.BoxGeometry(4,4,4);
+const box3Material = [
+  new THREE.MeshStandardMaterial({map: textureLoader.load(nebula), side: THREE.DoubleSide}),
+  new THREE.MeshStandardMaterial({map: textureLoader.load(stars), side: THREE.DoubleSide}),
+  new THREE.MeshStandardMaterial({map: textureLoader.load(nebula), side: THREE.DoubleSide}),
+  new THREE.MeshStandardMaterial({map: textureLoader.load(stars), side: THREE.DoubleSide}),
+  new THREE.MeshStandardMaterial({map: textureLoader.load(nebula), side: THREE.DoubleSide}),
+  new THREE.MeshStandardMaterial({map: textureLoader.load(stars), side: THREE.DoubleSide}),
+];
+
+const box3 = new THREE.Mesh(box3Geometry, box3Material);
+box3.position.set(10, 10, -10);
+box3.castShadow = true;
+scene.add(box3);
+
+
 
 // === Animation ===
 
