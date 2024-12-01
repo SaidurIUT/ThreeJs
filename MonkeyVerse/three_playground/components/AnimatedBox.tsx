@@ -1,9 +1,17 @@
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useHelper } from "@react-three/drei";
 
-const AnimatedBox = () => {
+type Props = {
+  isTesting: boolean;
+};
+
+const AnimatedBox: React.FC<Props> = ({ isTesting }) => {
   const meshRef = useRef<THREE.Mesh>(null!);
+  {
+    isTesting ? useHelper(meshRef, THREE.BoxHelper, "cyan") : null;
+  }
 
   useFrame(() => {
     console.log("This is AnimatedBox");
