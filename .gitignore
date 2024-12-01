@@ -6,9 +6,17 @@ ThreeJs1/.parcel-cache/
 ThreeJs1/.dist/
 ThreeJs1/dist/
 
+SolarSystem/.parcel-cache/
+SolarSystem/.dist/
+SolarSystem/dist/
+
 # Ignore `node_modules` directory
 ThreeJs1/node_modules/
+SolarSystem/node_modules/
 
 # Ignore package lock file (optional, if not needed)
 ThreeJs1/package-lock.json
+SolarSystem/package-lock.json
+
+
 
