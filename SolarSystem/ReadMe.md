@@ -1,5 +1,7 @@
 # Solar System
 
+# Solar System
+
 ## Overview
 
 This project served as a learning tool to explore the fundamentals of Three.js. While working on it, I gained hands-on experience with essential concepts such as:
@@ -7,7 +9,15 @@ This project served as a learning tool to explore the fundamentals of Three.js. 
 - Camera setup
 - Lighting
 - Geometry
-- Other core features of Three.js
+- Materials
+- Textures
+- Meshes
+- Scenes
+- Rendering
+- Animations
+- Event handling
+
+This foundational knowledge has prepared me to transition to **React Three Fiber**, which offers a declarative and React-based approach to working with Three.js.
 
 ## How to Run
 
