@@ -117,8 +117,6 @@ function createSatellite(parent, size, texture, position) {
   };
 }
 
-
-
 const mercury = createPlanete(3.2, mercuryTexture, 28);
 const venus = createPlanete(5.8, venusTexture, 44);
 const earth = createPlanete(6, earthTexture, 62);
@@ -139,9 +137,9 @@ const pluto = createPlanete(2.8, plutoTexture, 216);
 
 //Satellites
 
-const moon = createSatellite(earth.obj, 1.5, moonTexture, 50);
-const moonOfMars = createSatellite(mars.obj, 1, moonTexture, 60);
-const moonOfJupiter = createSatellite(jupiter.obj, 2, moonTexture, 65);
+// const moon = createSatellite(earth.obj, 1.5, moonTexture, 50);
+// const moonOfMars = createSatellite(mars.obj, 1, moonTexture, 60);
+// const moonOfJupiter = createSatellite(jupiter.obj, 2, moonTexture, 65);
 
 function animate() {
   //Self-rotation
@@ -166,8 +164,6 @@ function animate() {
   uranus.obj.rotateY(0.0004);
   neptune.obj.rotateY(0.0001);
   pluto.obj.rotateY(0.00007);
-    
-
 
   renderer.render(scene, camera);
 }
