@@ -23,7 +23,7 @@ const AnimatedBox: React.FC<Props> = ({ isTesting }) => {
   });
 
   return (
-    <mesh ref={meshRef}>
+    <mesh ref={meshRef} position={[0, 3, 0]} castShadow>
       <boxGeometry />
       <meshStandardMaterial />
     </mesh>
